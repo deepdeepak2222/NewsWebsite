@@ -3,3 +3,4 @@ psycopg2-binary==2.9.5
 ipython==8.6.0
 django-extensions==3.2.1
 djangorestframework==3.14.0
+pycryptodome==3.15.0

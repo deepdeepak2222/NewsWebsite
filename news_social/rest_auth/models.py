@@ -8,3 +8,4 @@ class User(TimeStampedModel):
     first_name = models.CharField(null=False, blank=False, max_length=50)
     last_name = models.CharField(null=True, blank=True, max_length=50)
     phone = models.CharField(null=True, blank=True, max_length=15)
+    password = models.CharField(null=False, blank=False, max_length=500)
