@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 
-from rest_auth.views import UserSignupView
+from rest_auth.views import UserSignupView, UserProfileView, UserLoginView
 
 urlpatterns = [
     path("signup/", UserSignupView.as_view(), name="User Signup"),
+    path("profile/", UserProfileView.as_view(), name="User Profile"),
+    path("login/", UserLoginView.as_view(), name="User Login"),
 ]
