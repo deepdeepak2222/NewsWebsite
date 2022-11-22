@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
-from frontend.views import signup
+from frontend.views import signup, index_view
 
 urlpatterns = [
+    path("", index_view, name="UI Index"),
     path("user/signup/", signup, name="UI User Signup"),
 ]
