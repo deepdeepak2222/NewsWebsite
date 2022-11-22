@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'frontend',
     'core',
+    'media',
 ]
 
 REST_FRAMEWORK = {
@@ -129,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'frontend/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -137,3 +138,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AES_SECRET_KEY = b"#\xb9y\xe9kj\xadt\xab\x07k\x19\xbeJ'\x99\xd1\x91 \x91\xc5\x92~\xd7M\xdc\x9a\xa4\xdd\x15\xcf8"
+
+AWS_S3_REGION_NAME = "us-east-1"
+AWS_S3_ACCESS_KEY_ID = ""
+AWS_S3_SECRET_ACCESS_KEY_ID = ""
+AWS_S3_SECRET_ACCESS_KEY = AWS_S3_SECRET_ACCESS_KEY_ID
+AWS_STORAGE_BUCKET_NAME = ""
+AWS_STORAGE_FOLDER_NAME = ""
+if DEBUG is True:
+    from .local_settings import *
+
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
