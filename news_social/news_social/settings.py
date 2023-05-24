@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os.path
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 AUTH_USER_MODEL = "rest_auth.User"
 ALLOWED_SESSIONS_AT_A_TIME = 1
@@ -30,6 +32,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
+# CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Application definition
 
@@ -41,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'rest_auth',
     'frontend',
     'core',
@@ -58,6 +69,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,8 +105,24 @@ WSGI_APPLICATION = 'news_social.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-from .local_settings import DATABASES
+# from .local_settings import DATABASES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("DATABASE_NAME", ""),
+        'USER': os.environ.get("DATABASE_USER", ""),
+        'PASSWORD': os.environ.get("DATABASE_PASSWORD", ""),
+        'HOST': os.environ.get("DATABASE_HOST", ""),
+        'PORT': os.environ.get("DATABASE_PORT", ""),
+    }
+}
 
+
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "")
+AWS_S3_ACCESS_KEY_ID = os.environ.get("AWS_S3_ACCESS_KEY_ID", "")
+AWS_S3_SECRET_ACCESS_KEY_ID = os.environ.get("AWS_S3_SECRET_ACCESS_KEY_ID", "")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
+AWS_STORAGE_FOLDER_NAME = os.environ.get("AWS_STORAGE_FOLDER_NAME", "")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -138,14 +166,5 @@ STATIC_URL = 'frontend/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AES_SECRET_KEY = b"#\xb9y\xe9kj\xadt\xab\x07k\x19\xbeJ'\x99\xd1\x91 \x91\xc5\x92~\xd7M\xdc\x9a\xa4\xdd\x15\xcf8"
-
-AWS_S3_REGION_NAME = "us-east-1"
-AWS_S3_ACCESS_KEY_ID = ""
-AWS_S3_SECRET_ACCESS_KEY_ID = ""
-AWS_S3_SECRET_ACCESS_KEY = AWS_S3_SECRET_ACCESS_KEY_ID
-AWS_STORAGE_BUCKET_NAME = ""
-AWS_STORAGE_FOLDER_NAME = ""
-if DEBUG is True:
-    from .local_settings import *
 
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME

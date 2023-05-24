@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<link rel="stylesheet" href="/frontend/static/css/common.css">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Login / Sign Up Form</title>
+    <link rel="stylesheet" href="/frontend/static/css/common.css">
+</head>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -31,33 +36,30 @@ input[type=text]:focus, input[type=password]:focus {
 }
 </style>
 <body>
-
-<div id="id01" class="modal">
-  <div class="header">
-    <img style="height: 100%;" src="/frontend/static/images/social_logo.jpeg">
-    <h1 style="float: right;">Ranchi Khabar</h1>
-    <table style="float: right;">
-      <thead>Contact Us</thead>
-      <thead></thead>
-      <thead></thead>
-    </table>
-
-  </div>
-  <div class="modal-content">
-    <div class="widget"></div>
-    <div class="widget"></div>
-    <div class="widget"></div>
-    <div class="widget"></div>
-  </div>
-
-</div>
-
-<script>
-
-// Get the modal
-var modal = document.getElementById('id01');
-
-</script>
-
+    <div class="header">
+        <img class="logo" src="/frontend/static/images/social_logo.jpeg">
+        <div class="contact-us">Contact Us</div>
+    </div>
+    <div class="container">
+        <form class="modal-content" action="http://127.0.0.1:8000/user/signup/" method="POST">
+            <div>
+              <h1 class="heading">Login</h1>
+            <div class="input-container">
+              <label for="email"><b>Email</b></label><br>
+              <input type="text" placeholder="Enter Email" name="email" required>
+            </div>
+              <br>
+              <div class="input-container">
+              <label for="password"><b>Password</b></label><br>
+              <input type="password" placeholder="Enter Password" name="password" required>
+            </div>
+              </div>
+              <div class="clearfix">
+                <button type="submit" class="signupbtn">LOGIN</button>
+              </div>
+            </div>
+          </form>
+    </div>
+    <script src="./src/main.js"></script>
 </body>
 </html>
